@@ -25,6 +25,5 @@ openssl rand -hex 32
 Run the Uvicorn server by using the uvicorn command
 
 ```bash
-cd src
 uvicorn src.main:app --reload
 ```
