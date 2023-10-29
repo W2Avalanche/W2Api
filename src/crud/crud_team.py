@@ -7,6 +7,9 @@ def get_team_by_name(db: Session, name: str) -> Team:
 def get_team(db: Session, id: str) -> Team:
     return db.query(Team).filter(Team.team_id == id).first()
 
+def get_all_teams(db: Session) -> list[Team]:
+    return db.query(Team).all()
+
 def create_team(db: Session, team: TeamCreate, players: list[Player] = None):
     team_db = Team(
         name = team.name,

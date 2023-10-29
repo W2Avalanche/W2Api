@@ -10,7 +10,7 @@ from w2project.schemas.team import Team
 from w2project.schemas.player import Player
 
 from crud.crud_player import create_player, get_player_by_nickname, create_or_get_player
-from crud.crud_team import create_team, get_team_by_name, create_or_update_team
+from crud.crud_team import create_team, get_team_by_name, create_or_update_team, get_all_teams
 from deps import get_current_active_user, get_db
 from auth import authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 
@@ -55,4 +55,10 @@ async def recover_team(team_name: str,
                        current_user: Annotated[User, Depends(get_current_active_user)],
                     db: Session = Depends(get_db) ) -> Team:
     team = get_team_by_name(db, team_name)
+    return team
+
+@app.get("/teams", response_model= list[Team])
+async def list_team(current_user: Annotated[User, Depends(get_current_active_user)],
+                    db: Session = Depends(get_db) ) -> Team:
+    team = get_all_teams(db)
     return team
